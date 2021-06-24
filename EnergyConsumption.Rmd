@@ -1,0 +1,88 @@
+---
+title: "EnergyConsumption_DataViz"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, fig.align="center")
+```
+
+## Original Data ##
+
+#### 1. Graph and Citation
+```{r , fig.align='center'}
+include_graphics("EU_energyEfficiancy.png")
+```
+
+*Castellazzi, L., P. B., Labanca, N., &amp; Serrenho, T. (2018, February). (PDF) energy consumption and energy Efficiency trends in the Eu-28 2000-2015: Efficiency trends OF Energy-related products and energy consumption in the EU-28. Retrieved March 19, 2021, from https://www.researchgate.net/publication/322952753_Energy_Consumption_and_Energy_Efficiency_Trends_in_the_EU-28_2000-2015_Efficiency_Trends_of_Energy-related_Products_and_Energy_Consumption_in_the_EU-28*
+
+#### 2. Author Purpose
+
+The primary purpose of this journal was to report the energy effeciency trends of the EU-28 between 2000 and 2015. This included analysis on energy production and consumption trends corresponding to different sectors as seen in their original table above. The purpose of their graph was to show that there had been a minimal increase in some sectors and a reduction in others which lead to the conclusion that consumption patterns have stayed relatively constant. 
+
+#### 3. Our Purpose
+
+After attempting our data analysis on the CDC Covid-19 data set and recognizing the ethical values we could not uphold, we wanted to investigate a dataset that would not risk drastic misinformation relating to sensitive topics while still providing meaningful analysis. After looking through numerous energy based data sets we settled on this one given that we could not figure out what it was trying to show us even though it provided clean looking data.
+
+
+After reading the paragraph that refers to their graph (pg 14-15 in the PDF), it became apparent that they *were* showing that the data from 2000 was similar to 2015. While their graph does exemplify this purpose, it is very difficult to see these results in their stacked barchart without first assuming that they were exactly the same. It is not until you look at the table below that you can see the differences between the datasets. Additionally, their table and barchart do not show a clear seperation between actual consumption of energy and what is lost through the transmitting processes of transformation, distribution, and exchanges.
+
+
+#### 4. Creating Our Data ##
+```{r, include=FALSE}
+data <- read.csv("EnergyConsumption.csv")
+str(data)
+library(ggplot2)
+library(ggpubr)
+library(ggeasy)
+theme_set(theme_pubr())
+
+```
+
+```{r}
+head(data)
+tail(data)
+dim(data)
+```
+
+#### 5. Graph Our Data
+
+```{r }
+energy <- data
+
+#refactor the fuel types and Year
+energy$Type <- factor(energy$Type, levels = c("Final Energy Consumption", "Final Non-energy Consumption", "Consumption in Energy", "Transformation Losses", " ", "Distribution Losses", "Exchange, Tranfers, Returns"))
+energy$ï..Year <- factor(energy$ï..Year)
+
+  #Creating our base plot
+p <- ggplot(data = energy, aes(x = Energy.Consumption , y = Type, fill = ï..Year)) +
+  expand_limits(x = 100) + #prevent plot from being cut off
+  geom_text(aes(label = Energy.Consumption), position = position_dodge(0.9), hjust = -0.2, size = 3) + #add percentage labels to each bar
+  geom_bar(stat = "identity", position = "dodge") 
+
+  #editing plot title & subtitle
+p <-  p + labs(title = "Gross inland energy consumption breakdown in \n the EU-28, 2000 and 2015",
+                  caption = "Source: Eurostat") +
+  labs(fill = "Year") + 
+  ggeasy::easy_center_title() +
+  theme(plot.title = element_text( size=12, face="italic"), 
+       plot.caption  = element_text(size = 8, hjust = .5))
+  
+
+  #editing x and y labels 
+p <- p + ylab("Fuel Type") + xlab("Energy Consumption Percentage") 
+
+p
+
+```
+
+#### 6. Why is Our Plot Better?
+our plot is able to show us what the exact comparison between the 2 different years is. In our plot we have everything separated versus having all of the energy losses and returns on the same bar for each year. Our new plot is easier to understand and proves the idea that the original graph was trying to portray; that there was not much difference between consumption and loss of energy between the years 2000 and 2015.At first glance the original plot was difficult to read without looking at the numbers of percentages as well, and you could not tell that the sections were the same size until you looked at the table underneath.
+
+#### 7. Troubles
+We had some troubles with getting the labels to show and not crowd with each other. Also we had a little difficulty figuring ouut how we should put the numbers into our CSV file to be able to create a graph that would correctly represent what we wanted to show.
+
+Regarding our previous dataset with Covid-19 data we ran into many more troubles there. The dataset was not helpful and had groupings for ages that would overlap, as well as groupings for state and sex that would result in having a people counted multiple times in the same dataset. *Link to this dataset: https://data.cdc.gov/NCHS/Provisional-COVID-19-Death-Counts-by-Sex-Age-and-S/9bhg-hcku/data*
