@@ -1,4 +1,4 @@
-# EnergyConsumption
+# Energy Consumption Data Visualization
 
 ![unknown](https://user-images.githubusercontent.com/58790294/123346616-91107c80-d50d-11eb-93e0-9b23bcc55e7d.png)
 
