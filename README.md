@@ -15,5 +15,5 @@ Purpose of the project:
 
 ![unnamed](https://user-images.githubusercontent.com/58790294/123346624-94a40380-d50d-11eb-82e7-c3cc486400fb.png)
 
-The data proves that the energy consumption between the years 2000 and 2015 may not as drastically different as previously thought. 
+The data proves that the energy consumption between the years 2000 and 2015 may not be as drastically different as previously thought. 
 
