@@ -11,8 +11,10 @@ Purpose of the project:
   - practice and receive feedback on presentations as preparation for the final consulting project presentations
   - share and hear about different difficulties with data preparation, wrangling, and data visualization—so that we might learn from each other for future projects
 
+# Initial Data Visualization
 ![unknown](https://user-images.githubusercontent.com/58790294/123346616-91107c80-d50d-11eb-93e0-9b23bcc55e7d.png)
 
+# Improvement in Data Visualization
 ![unnamed](https://user-images.githubusercontent.com/58790294/123346624-94a40380-d50d-11eb-82e7-c3cc486400fb.png)
 
 The data proves that the energy consumption between the years 2000 and 2015 may not be as drastically different as previously thought. 
